@@ -1,3 +1,3 @@
-module cpl.li/go/goose
+module cpl.li/go/exodus
 
 go 1.13

@@ -1,5 +1,5 @@
 # add all your cmd/<things> in here
-TARGETS = executable
+TARGETS = exodus-server exodus-client
 
 
 CMD_DIR := ./cmd
