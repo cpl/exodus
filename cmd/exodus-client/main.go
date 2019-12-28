@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	SubDomainSizeLimit   = 63
-	TotalDomainSizeLimit = 253
+	subDomainSizeLimit   = 63
+	totalDomainSizeLimit = 253
 )
 
 var (
@@ -62,9 +62,9 @@ func sendData(data []byte, count int) error {
 	encodedData := base58.Encode(data)
 	question := fmt.Sprintf("%s.%d.%s.%s.", encodedData, count, *token, *target)
 
-	if len(question) > TotalDomainSizeLimit || len(encodedData) > SubDomainSizeLimit {
+	if len(question) > totalDomainSizeLimit || len(encodedData) > subDomainSizeLimit {
 		return fmt.Errorf("subdomain validates limits (%d >? %d, %d >? %d)",
-			len(encodedData), SubDomainSizeLimit, len(question), TotalDomainSizeLimit)
+			len(encodedData), subDomainSizeLimit, len(question), totalDomainSizeLimit)
 	}
 
 	msg.SetQuestion(question, dns.TypeNS)
