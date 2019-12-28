@@ -1,5 +1,7 @@
 # Exodus
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/cpl/exodus)](https://goreportcard.com/report/github.com/cpl/exodus)
+
 DNS Exfiltration tool. By setting up a remote server listening for "DNS queries", we can bypass most firewall rules and monitoring.
 
 This does not guarantee perfect stealth! A good network admin and setup will easily spot such traffic and flag it.
