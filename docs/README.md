@@ -1,4 +1,4 @@
-# Exodus
+![Exodus](./logo.png)
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/cpl/exodus)](https://goreportcard.com/report/github.com/cpl/exodus)
 
