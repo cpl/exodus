@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net"
 	"os"
 	"path"
@@ -39,6 +40,12 @@ func (e entry) save(dir string) error {
 	}
 
 	return nil
+}
+
+func randomIP() [4]byte {
+	var ip [4]byte
+	rand.Read(ip[:])
+	return ip
 }
 
 func main() {
@@ -84,22 +91,26 @@ func extractData(msg dnsmessage.Message) (e entry, err error) {
 	return
 }
 
+func readMessage(conn *net.UDPConn) (msg dnsmessage.Message, addr *net.UDPAddr, err error) {
+	var buffer [512]byte
+
+	read, addr, err := conn.ReadFromUDP(buffer[:])
+	if err != nil {
+		return msg, nil, fmt.Errorf("failed network read, %w", err)
+	}
+
+	if err := msg.Unpack(buffer[:read]); err != nil {
+		return msg, nil, fmt.Errorf("failed message unpacking, %w", err)
+	}
+
+	return
+}
+
 func start(conn *net.UDPConn, dataDir string) {
 	for {
-		var (
-			buffer [512]byte
-			msg    dnsmessage.Message
-		)
-
-		read, addr, err := conn.ReadFromUDP(buffer[:])
+		msg, addr, err := readMessage(conn)
 		if err != nil {
-			log.Printf("failed network read, %s\n", err.Error())
-			continue
-		}
-
-		if err := msg.Unpack(buffer[:read]); err != nil {
-			log.Printf("failed message unpacking, %s\n", err.Error())
-			continue
+			log.Printf("failed message read, %s\n", err.Error())
 		}
 
 		e, err := extractData(msg)
@@ -117,6 +128,15 @@ func start(conn *net.UDPConn, dataDir string) {
 			continue
 		}
 
+		msg.Answers = append(msg.Answers, dnsmessage.Resource{
+			Header: dnsmessage.ResourceHeader{
+				Name:  msg.Questions[0].Name,
+				Type:  dnsmessage.TypeA,
+				Class: dnsmessage.ClassINET,
+				TTL:   300,
+			},
+			Body: &dnsmessage.AResource{A: randomIP()},
+		})
 		msg.Header.Response = true
 
 		packed, err := msg.Pack()

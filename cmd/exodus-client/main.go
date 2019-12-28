@@ -67,7 +67,7 @@ func sendData(data []byte, count int) error {
 			len(encodedData), subDomainSizeLimit, len(question), totalDomainSizeLimit)
 	}
 
-	msg.SetQuestion(question, dns.TypeNS)
+	msg.SetQuestion(question, dns.TypeA)
 
 	if *verbose {
 		log.Printf("sending %8d %s\n", count, question)
