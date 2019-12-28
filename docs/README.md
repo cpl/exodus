@@ -18,6 +18,8 @@ This does not guarantee perfect stealth! A good network admin and setup will eas
 
 ### Releases page
 
+> May not contain latest changes (some of which are bug fixes)!
+
 1. Go to [Exodus Releases](https://github.com/cpl/exodus/releases) on GitHub
 2. Download the binaries for your systems
 

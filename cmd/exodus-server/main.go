@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/base64"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -12,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/mr-tron/base58"
 	"golang.org/x/net/dns/dnsmessage"
 )
 
@@ -73,7 +73,7 @@ func extractData(msg dnsmessage.Message) (e entry, err error) {
 		return e, fmt.Errorf("dns question is missing requiered information")
 	}
 
-	e.data, err = base64.RawStdEncoding.DecodeString(domains[0])
+	e.data, err = base58.Decode(domains[0])
 	if err != nil {
 		return e, fmt.Errorf("failed decoding data, %w", err)
 	}

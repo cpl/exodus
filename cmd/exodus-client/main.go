@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/base64"
 	"flag"
 	"fmt"
 	"io"
@@ -10,6 +9,7 @@ import (
 	"os"
 
 	"github.com/miekg/dns"
+	"github.com/mr-tron/base58"
 )
 
 const (
@@ -59,7 +59,7 @@ func sendData(data []byte, count int) error {
 		client dns.Client
 	)
 
-	encodedData := base64.RawStdEncoding.EncodeToString(data)
+	encodedData := base58.Encode(data)
 	question := fmt.Sprintf("%s.%d.%s.%s.", encodedData, count, *token, *target)
 
 	if len(question) > TotalDomainSizeLimit || len(encodedData) > SubDomainSizeLimit {
