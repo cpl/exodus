@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 
 	"github.com/miekg/dns"
 	"github.com/mr-tron/base58"
@@ -25,6 +26,7 @@ var (
 	fileSource    = flag.String("file", "", "Read data from file instead of default stdin")
 	dataChunkSize = flag.Int("size", 47, "Data chunk size in bytes")
 	token         = flag.String("token", "o", "Token for identification on server side")
+	timed         = flag.Int("timed", 0, "Send one chunk at every N seconds")
 )
 
 func parseFlags() {
@@ -96,6 +98,8 @@ func main() {
 	size := *dataChunkSize
 
 	for {
+		time.Sleep(time.Duration(*timed) * time.Second)
+
 		read, err := scanner.Read(buffer[:size])
 		if read == 0 {
 			break

@@ -67,8 +67,4 @@ Other optional flags are:
 * `--port 1453`, if you set the server to use something other than 53
 * `--token example`, use different tokens for different "uploads", this will separate them server side
 * `-v`, enables verbose logging
-
-
-
-
-
+* `--timed 30`, will send 1 chunk every 30 seconds
