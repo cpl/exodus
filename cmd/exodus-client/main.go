@@ -97,8 +97,11 @@ func main() {
 	counter := 0
 	size := *dataChunkSize
 
+	sleepTime := *timed
 	for {
-		time.Sleep(time.Duration(*timed) * time.Second)
+		if sleepTime > 0 {
+			time.Sleep(time.Duration(sleepTime) * time.Second)
+		}
 
 		read, err := scanner.Read(buffer[:size])
 		if read == 0 {
