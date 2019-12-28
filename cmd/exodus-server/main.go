@@ -65,6 +65,7 @@ func main() {
 	if *verbose {
 		log.Println("started")
 		log.Println("data dir:", dataDir)
+		log.Println("listening:", conn.LocalAddr().String())
 	}
 
 	start(conn, dataDir)

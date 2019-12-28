@@ -29,7 +29,7 @@ purge: clean
 	go clean -testcache
 	go clean -modcache
 
-build: $(OUT_DIR)
+build: $(OUT_DIR) mod
 	$(foreach target,$(TARGETS),go build -o $(OUT_DIR)/$(target) $(CMD_DIR)/$(target)/*.go;)
 
 test: $(OUT_DIR)
