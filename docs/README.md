@@ -53,6 +53,10 @@ For example sending a file in **4** chunks using the token **example** and the s
 
 From here you could do something as simple as: `cat * > full.out` to assemble it back.
 
+#### Docker
+
+The server can also run in Docker. To do so, first build the Docker image `docker build -t exodus .` and then start it with `docker run -p <YOUR DNS UDP PORT>:5353/udp -it exodus`.
+
 ### Client
 
 The Exodus client **needs** the following flags:
