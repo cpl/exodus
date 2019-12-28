@@ -57,6 +57,8 @@ From here you could do something as simple as: `cat * > full.out` to assemble it
 
 The server can also run in Docker. To do so, first build the Docker image `docker build -t exodus .` and then start it with `docker run -p <YOUR DNS UDP PORT>:5353/udp -it exodus`.
 
+Another way is to pull it as `docker pull docker.pkg.github.com/cpl/exodus/exodus-server` from the GitHub package manager.
+
 ### Client
 
 The Exodus client **needs** the following flags:
